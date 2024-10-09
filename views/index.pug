@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    h1 Sincronización Manual de Karaoke
+    form(id='karaokeForm', method='post', action='/sync')
+      label(for='audioFile') Cargar Base Musical:
+      input(type='file', id='audioFile', name='audioFile', accept='audio/*')
+      br
+      label(for='lyrics') Pega la letra:
+      textarea(id='lyrics', name='lyrics', rows='10', cols='50') Pega la letra aquí...
+      br
+      button(type='button', id='syncButton') Iniciar Sincronización
+    div(id='syncSection', style='display:none')
+      audio(id='audioPlayer', controls)
+      ul(id='lyricsList')
+      button(type='button', id='markButton') Marcar Tiempo
+    script(src='/javascripts/sync.js')
