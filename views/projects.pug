@@ -5,4 +5,9 @@ block content
   ul
     each project in projects
       li
-        a(href=`/outputs/${project.filename}`) #{project.name} - #{project.created_at}
+        p Nombre del proyecto: #{project.name}
+        p Descripción: #{project.description}
+        p Fecha de creación: #{project.created_at}
+        a(href=`/projects/view/${project.id}`) Ver
+        form(action=`/projects/delete/${project.id}`, method="post")
+          button(type="submit") Eliminar

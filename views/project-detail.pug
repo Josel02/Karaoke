@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= project.name
+  p Descripción: #{project.description}
+  p Archivo generado: 
+    a(href=`/outputs/${project.filename}`) Descargar archivo SRT
+  p Fecha de creación: #{project.created_at}
+  p Última modificación: #{project.last_modified}
+  a(href='/projects') Volver a proyectos

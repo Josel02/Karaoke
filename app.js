@@ -20,26 +20,21 @@ app.use(cookieParser());
 
 // Archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Hacer accesible la carpeta de archivos de salida
 app.use('/outputs', express.static(path.join(__dirname, 'outputs')));
 
 // Rutas
-app.use('/', indexRouter);
-app.use('/projects', projectsRouter);
+app.get('/', (req, res) => res.render('home', { title: 'Karaoke Sync' })); // Nueva vista de inicio
+app.use('/create', indexRouter); // Ruta para crear proyecto
+app.use('/projects', projectsRouter); // Ruta para gestionar proyectos
 
-// Manejo de errores 404
+// Manejo de errores
 app.use((req, res, next) => {
   next(createError(404));
 });
 
-// Manejador de errores
 app.use((err, req, res, next) => {
-  // Configura los locals, solo proporcionando error en desarrollo
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // Renderiza la página de error
   res.status(err.status || 500);
   res.render('error');
 });

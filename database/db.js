@@ -16,8 +16,11 @@ db.run(`
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
         filename TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        description TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
 `);
+
 
 module.exports = db;
