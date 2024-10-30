@@ -6,6 +6,9 @@ html
   body
     h1 Sincronización Manual de Karaoke
     form(id='karaokeForm', method='post', action='/sync')
+      label(for='projectName') Nombre del Proyecto:
+      input(type='text', id='projectName', name='projectName', required)
+      br
       label(for='audioFile') Cargar Base Musical:
       input(type='file', id='audioFile', name='audioFile', accept='audio/*')
       br

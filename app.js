@@ -1,15 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const projectsRouter = require('./routes/projects');
 
-var app = express();
+const app = express();
 
-// view engine setup
+// Configuración del motor de vistas
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -17,23 +17,29 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// Hacer accesible la carpeta de archivos de salida
+app.use('/outputs', express.static(path.join(__dirname, 'outputs')));
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+// Rutas
+app.use('/', indexRouter);
+app.use('/projects', projectsRouter);
+
+// Manejo de errores 404
+app.use((req, res, next) => {
   next(createError(404));
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
+// Manejador de errores
+app.use((err, req, res, next) => {
+  // Configura los locals, solo proporcionando error en desarrollo
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // Renderiza la página de error
   res.status(err.status || 500);
   res.render('error');
 });

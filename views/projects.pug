@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= title
+  ul
+    each project in projects
+      li
+        a(href=`/outputs/${project.filename}`) #{project.name} - #{project.created_at}
