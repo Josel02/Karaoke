@@ -14,7 +14,14 @@ block content
     br
     button(type='button', id='syncButton') Iniciar Sincronización
   div(id='syncSection', style='display:none')
-    audio(id='audioPlayer', controls)
+    // Reproductor de audio sin controles predeterminados
+    audio(id='audioPlayer')
+    // Botones personalizados
+    button(type='button', id='playButton') Play
+    button(type='button', id='pauseButton') Pause
+    button(type='button', id='resetButton') Reiniciar Sincronización
+    // Lista de letras
     ul(id='lyricsList')
+    // Botón para marcar tiempos
     button(type='button', id='markButton') Marcar Tiempo
   script(src='/javascripts/sync.js')

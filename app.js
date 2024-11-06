@@ -21,7 +21,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Middleware para manejo de archivos
-app.use(fileUpload());
+app.use(fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 }, // Limite de 50MB
+}));
 
 // Archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
@@ -33,11 +35,12 @@ app.get('/', (req, res) => res.render('home', { title: 'Karaoke Sync' })); // Vi
 app.use('/create', indexRouter); // Ruta para crear proyecto
 app.use('/projects', projectsRouter); // Ruta para gestionar proyectos
 
-// Manejo de errores
+// Manejo de errores 404
 app.use((req, res, next) => {
     next(createError(404));
 });
 
+// Manejo de otros errores
 app.use((err, req, res, next) => {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
