@@ -1,3 +1,4 @@
+// views/projects.pug
 extends layout
 
 block content
@@ -9,5 +10,5 @@ block content
         p Descripción: #{project.description}
         p Fecha de creación: #{project.created_at}
         a(href=`/projects/view/${project.id}`) Ver
-        form(action=`/projects/delete/${project.id}`, method="post")
+        form(action=`/projects/delete/${project.id}`, method="post", onsubmit="return confirm('¿Estás seguro de eliminar este proyecto?');")
           button(type="submit") Eliminar

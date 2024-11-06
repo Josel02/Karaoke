@@ -1,3 +1,4 @@
+// public/javascripts/sync.js
 let lyricsArray = [];
 let timestamps = [];
 let currentLineIndex = 0;
@@ -53,22 +54,23 @@ document.getElementById('markButton').addEventListener('click', () => {
     // Enviar los datos al servidor cuando se hayan marcado todas las líneas
     if (currentLineIndex === lyricsArray.length) {
         const projectName = document.getElementById('projectName').value;
+        const audioFileInput = document.getElementById('audioFile').files[0];
 
-        fetch('/sync', {
+        const formData = new FormData();
+        formData.append('projectName', projectName);
+        formData.append('lyrics', lyricsArray.join('\n'));
+        formData.append('timestamps', JSON.stringify(timestamps));
+        formData.append('audioFile', audioFileInput);
+
+        fetch('/create/sync', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                projectName,
-                lyrics: lyricsArray,
-                timestamps
-            }),
+            body: formData,
         })
         .then(response => response.text())
         .then(result => {
             console.log(result);
             alert('Sincronización completada y archivo SRT generado.');
+            window.location.href = '/projects';
         })
         .catch(error => {
             console.error('Error:', error);

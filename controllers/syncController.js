@@ -1,24 +1,42 @@
-const path = require('path');
+// controllers/syncController.js
 const fs = require('fs');
-const db = require('../database/db');
+const path = require('path');
+const Project = require('../models/Project');
 const srtService = require('../services/srtService');
 
 exports.syncLyrics = (req, res) => {
-    const { lyrics, timestamps, projectName } = req.body;
-    const filename = `${projectName.replace(/\s+/g, '_')}_${Date.now()}.srt`; // Nombre único basado en el proyecto
-    const outputPath = path.join(__dirname, '../outputs', filename);
+    const { projectName, lyrics, timestamps } = req.body;
+    const audioFile = req.files.audioFile;
 
-    // Generar el archivo SRT
-    srtService.generateSRT(lyrics, timestamps, outputPath);
+    if (!projectName || !audioFile || !lyrics) {
+        return res.status(400).send('Datos incompletos.');
+    }
 
-    // Guardar proyecto en la base de datos
-    const query = `INSERT INTO projects (name, filename) VALUES (?, ?)`;
-    db.run(query, [projectName, filename], (err) => {
+    const lyricsArray = lyrics.split('\n');
+    const parsedTimestamps = JSON.parse(timestamps);
+
+    const uploadsDir = path.join(__dirname, '..', 'uploads');
+    if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir);
+    }
+
+    const audioPath = path.join(uploadsDir, audioFile.name);
+    audioFile.mv(audioPath, (err) => {
         if (err) {
-            console.error('Error al guardar en la base de datos:', err);
-            res.status(500).send('Error al guardar el proyecto.');
-        } else {
-            res.send(`Sincronización completada. Archivo generado: ${filename}`);
+            console.error('Error al guardar el archivo de audio:', err);
+            return res.status(500).send('Error al guardar el archivo de audio.');
         }
+
+        const outputPath = path.join(__dirname, '..', 'outputs', `${projectName}.srt`);
+        srtService.generateSRT(lyricsArray, parsedTimestamps, outputPath);
+
+        // Guardar en la base de datos
+        Project.create(projectName, `${projectName}.srt`, 'Descripción del proyecto', (err, project) => {
+            if (err) {
+                console.error('Error al guardar el proyecto en la base de datos:', err);
+                return res.status(500).send('Error al guardar el proyecto.');
+            }
+            res.status(200).send('Sincronización completada y archivo SRT generado.');
+        });
     });
 };

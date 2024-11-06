@@ -1,12 +1,20 @@
+// services/srtService.js
 const fs = require('fs');
 
 exports.generateSRT = (lyrics, timestamps, outputPath) => {
     let srtContent = '';
     timestamps.forEach((entry, index) => {
-        const startTime = new Date(entry.time * 1000).toISOString().substr(11, 8);
-        const endTime = new Date((entry.time + 2) * 1000).toISOString().substr(11, 8);
-        srtContent += `${index + 1}\n${startTime},000 --> ${endTime},000\n${entry.line}\n\n`;
+        const startTime = formatTime(entry.time);
+        const endTime = formatTime(entry.time + 2); // Ajusta la duración según sea necesario
+        srtContent += `${index + 1}\n${startTime} --> ${endTime}\n${entry.line}\n\n`;
     });
 
-    fs.writeFileSync(outputPath, srtContent);
+    fs.writeFileSync(outputPath, srtContent, 'utf8');
+};
+
+const formatTime = (seconds) => {
+    const date = new Date(null);
+    date.setSeconds(seconds);
+    const timeString = date.toISOString().substr(11, 12);
+    return timeString.replace('.', ',');
 };
