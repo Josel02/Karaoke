@@ -43,5 +43,4 @@ Se añadirá más adelante...
 Cualquier duda o consulta, escríbenos a nuestro correo:
 
 - alejandro.paniagua1@alu.uclm.es
-- andres.gonzalez9@alu.uclm.es
 - jose.lara3@alu.uclm.es
