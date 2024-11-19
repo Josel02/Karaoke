@@ -7,4 +7,20 @@ block content
     a(href=`/outputs/${project.filename}`) Descargar archivo SRT
   p Fecha de creación: #{project.created_at}
   p Última modificación: #{project.last_modified}
+
+  h2 Generar Video Karaoke
+  button(type='button', id='recordButton') Grabar Video
+  video(id='previewVideo', width='640', height='360', controls autoplay style='display:none') Tu navegador no soporta videos.
+
+  canvas(id='videoCanvas', width='1280', height='720', style='display:none; border:1px solid black')
+
   a(href='/projects') Volver a proyectos
+
+  // Cargar los datos en variables de JavaScript
+  script.
+    const lyrics = !{lyrics};
+    const timestamps = !{timestamps};
+    const project = !{JSON.stringify(project)};
+
+  // Cargar el script de generación de video
+  script(src='/javascripts/projectDetail.js')

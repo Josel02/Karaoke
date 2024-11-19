@@ -146,6 +146,8 @@ resetButton.addEventListener('click', () => {
     markedLines.forEach(line => line.classList.remove('marked'));
 
     // Resetear el reproductor de audio
-    audioPlayer.currentTime = 0;
     audioPlayer.pause();
+    audioPlayer.currentTime = 0;
+    audioPlayer.src = audioPlayer.src; // Esto fuerza la recarga del archivo de audio
+    audioPlayer.load(); // Recarga el archivo de audio
 });
