@@ -1,14 +1,27 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const recordButton = document.getElementById('recordButton');
     const previewVideo = document.getElementById('previewVideo');
     const canvas = document.getElementById('videoCanvas');
     const context = canvas.getContext('2d');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
 
-    const audioPlayer = new Audio('/uploads/AMOR MALDITO-jose.mp3'); // Ruta del archivo de audio
-    let recordedChunks = [];
+    let audioContext;
     let mediaRecorder;
+    let recordedChunks = [];
 
-    // Dibujar las letras en el canvas
+    const audioPlayer = new Audio(audio); // Ruta del archivo de audio
+
+    const createAudioStream = () => {
+        if (!audioContext) {
+            audioContext = new AudioContext();
+        }
+        const source = audioContext.createMediaElementSource(audioPlayer);
+        const destination = audioContext.createMediaStreamDestination();
+        source.connect(destination);
+        return destination.stream;
+    };
+
     const drawLyrics = (line) => {
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.fillStyle = '#000';
@@ -20,16 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
         context.fillText(line, canvas.width / 2, canvas.height / 2);
     };
 
-    // Iniciar la grabación combinando el audio y el canvas
     const startRecording = () => {
         const videoStream = canvas.captureStream();
-        const audioStream = audioPlayer.captureStream(); // Captura el flujo de audio
+        const audioStream = createAudioStream();
         const combinedStream = new MediaStream([
             ...videoStream.getTracks(),
             ...audioStream.getTracks(),
         ]);
 
-        mediaRecorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm' });
+        mediaRecorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm; codecs=vp8' });
 
         mediaRecorder.ondataavailable = (event) => {
             if (event.data.size > 0) {
@@ -41,15 +53,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const blob = new Blob(recordedChunks, { type: 'video/webm' });
             const url = URL.createObjectURL(blob);
 
-            // Ocultar el canvas
             canvas.style.display = 'none';
-
-            // Mostrar el video generado
             previewVideo.src = url;
             previewVideo.style.display = 'block';
             previewVideo.play();
 
-            // Enviar el video al servidor para guardarlo
+            // Ocultar barra de progreso
+            progressContainer.style.display = 'none';
+
+            // Ocultar el botón de grabar
+            recordButton.style.display = 'none';
+
             const formData = new FormData();
             formData.append('video', blob, `${project.name}.webm`);
 
@@ -73,8 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
         mediaRecorder.start();
 
         let currentIndex = 0;
+        const totalSteps = timestamps.length; // Total de pasos para sincronizar
 
-        audioPlayer.play(); // Iniciar el audio
+        // Mostrar la barra de progreso
+        progressContainer.style.display = 'block';
+
+        audioPlayer.play();
 
         const interval = setInterval(() => {
             if (currentIndex >= timestamps.length) {
@@ -84,12 +102,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // Dibujar letras y actualizar progreso
             drawLyrics(lyrics[currentIndex]);
             currentIndex++;
+
+            // Actualizar la barra de progreso
+            const progress = (currentIndex / totalSteps) * 100; // Calcular porcentaje
+            progressBar.style.width = `${progress}%`;
         }, 2000); // Ajusta la duración por línea
     };
 
-    // Manejar el botón de grabación
     recordButton.addEventListener('click', () => {
         if (timestamps.length === 0 || lyrics.length === 0) {
             alert('No se encontraron datos de sincronización para este proyecto.');

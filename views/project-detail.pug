@@ -8,19 +8,28 @@ block content
   p Fecha de creación: #{project.created_at}
   p Última modificación: #{project.last_modified}
 
-  h2 Generar Video Karaoke
-  button(type='button', id='recordButton') Grabar Video
-  video(id='previewVideo', width='640', height='360', controls autoplay style='display:none') Tu navegador no soporta videos.
+  if videoExists
+    h2 Video Generado
+    video(src=videoPath, controls, width='640', height='360') Tu navegador no soporta videos.
+  else
+    h2 Generar Video Karaoke.
+    button(type='button', id='recordButton') Grabar Video
+  
+  canvas(id='videoCanvas', width='640', height='360', style='display:none; border:1px solid black')
 
-  canvas(id='videoCanvas', width='1280', height='720', style='display:none; border:1px solid black')
+  // Barra de carga
+  div(id='progressContainer', style='width: 100%; display: none; margin-top: 20px;')
+    div(id='progressBar', style='width: 0%; height: 20px; background-color: green;')
 
+  br
   a(href='/projects') Volver a proyectos
 
   // Cargar los datos en variables de JavaScript
   script.
+    const project = !{project};
+    const audio = !{musicPath};
     const lyrics = !{lyrics};
     const timestamps = !{timestamps};
-    const project = !{JSON.stringify(project)};
 
   // Cargar el script de generación de video
   script(src='/javascripts/projectDetail.js')

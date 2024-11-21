@@ -27,8 +27,9 @@ app.use(fileUpload({
 
 // Archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/outputs', express.static(path.join(__dirname, 'outputs')));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/lyrics', express.static(path.join(__dirname, 'lyrics')));
+app.use('/videos', express.static(path.join(__dirname, 'videos')));
+app.use('/music', express.static(path.join(__dirname, 'music')));
 
 // Rutas
 app.get('/', (req, res) => res.render('home', { title: 'Karaoke Sync' })); // Vista de inicio

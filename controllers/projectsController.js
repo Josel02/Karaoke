@@ -14,6 +14,7 @@ exports.getProjects = (req, res) => {
 
 exports.viewProject = (req, res) => {
     const projectId = req.params.id;
+
     Project.findById(projectId, (err, project) => {
         if (err) {
             console.error('Error al obtener el proyecto:', err);
@@ -24,7 +25,7 @@ exports.viewProject = (req, res) => {
         }
 
         // Leer el archivo SRT asociado al proyecto
-        const srtPath = path.join(__dirname, '..', 'outputs', project.filename);
+        const srtPath = path.join(__dirname, '..', 'lyrics', project.filename);
         let srtContent = '';
         try {
             srtContent = fs.readFileSync(srtPath, 'utf8');
@@ -36,14 +37,28 @@ exports.viewProject = (req, res) => {
         // Parsear el archivo SRT
         const { lyrics, timestamps } = parseSRT(srtContent);
 
+        // Verificar si el video existe
+        const videoName = `${project.name}.mp4`;
+        const videoPath = path.join(__dirname, '..', 'videos', videoName);
+        let videoExists = false;
+
+        try {
+            videoExists = fs.existsSync(videoPath); // Verifica si el archivo existe
+        } catch (err) {
+            console.error('Error al verificar el archivo de video:', err);
+        }
+
         // Renderizar la vista con los datos necesarios
         res.render('project-detail', {
             project,
             lyrics: JSON.stringify(lyrics), // Convertir a JSON para enviar al cliente
             timestamps: JSON.stringify(timestamps), // Convertir a JSON para enviar al cliente
+            videoExists,
+            videoPath: videoExists ? `/videos/${videoName}` : null,
         });
     });
 };
+
 
 exports.deleteProject = (req, res) => {
     const projectId = req.params.id;

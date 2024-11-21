@@ -17,19 +17,23 @@ exports.syncLyrics = (req, res) => {
         const lyricsArray = lyrics.split('\n');
         const parsedTimestamps = JSON.parse(timestamps);
 
-        const uploadsDir = path.join(__dirname, '..', 'uploads');
+        const uploadsDir = path.join(__dirname, '..', 'music');
         if (!fs.existsSync(uploadsDir)) {
             fs.mkdirSync(uploadsDir);
         }
 
-        const audioPath = path.join(uploadsDir, audioFile.name);
+        // Obtener la extensión del archivo y lo fusiona con su nuevo nombre
+        const audioFileExtension = path.extname(audioFile.name); 
+        const newAudioFileName = projectName + audioFileExtension;
+
+        const audioPath = path.join(uploadsDir, newAudioFileName);
         audioFile.mv(audioPath, (err) => {
             if (err) {
                 console.error('Error al guardar el archivo de audio:', err);
                 return res.status(500).send('Error al guardar el archivo de audio.');
             }
 
-            const outputsDir = path.join(__dirname, '..', 'outputs');
+            const outputsDir = path.join(__dirname, '..', 'lyrics');
             if (!fs.existsSync(outputsDir)) {
                 fs.mkdirSync(outputsDir);
             }
