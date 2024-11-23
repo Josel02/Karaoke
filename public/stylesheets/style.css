@@ -1,17 +1,5 @@
-
-nav {
-  background-color: #ffd8a6;
-}
-
-header {
+header, nav {
   background-color: #fff4cc;
-}
-
-header h1 {
-  font-family: "Caveat Brush", cursive;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 3.5rem;
 }
 
 main {
@@ -21,6 +9,47 @@ main {
 
 footer {
   background-color: #35323d;
+}
+
+header h1 {
+  font-family: "Caveat Brush", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 3.5rem;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Caveat Brush";
+}
+
+#swal2-title {
+  font-family: "Segoe UI";
+  font-weight: bold;
+}
+
+nav {
+  border-bottom: 1px solid #B0B0B0; /* Línea debajo del nav */
+}
+
+/* Navbar links */
+.navbar-nav .nav-link {
+  font-family: "Caveat Brush";
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #333;
+  margin-right: 15px;
+  padding: 4px 10px; /* Añadir relleno para parecer un botón */
+}
+
+.nav-link.active {
+  color: black; /* Texto blanco al pasar el ratón o cuando está activo */
+  background-color: #FFA366; /* Fondo naranja */
+  border-radius: 3px;
+}
+
+.navbar-nav .nav-link:focus {
+  outline: none; /* Elimina el borde azul al hacer clic */
 }
 
 .banner img {

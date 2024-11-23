@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', async () => {
-
+    
     const formattedDate = new Intl.DateTimeFormat('es-ES', {
         year: 'numeric',
         month: 'numeric',
         day: 'numeric',
-    })
-
+    });
+    
     document.getElementById('createdAt').textContent = formattedDate.format(new Date(project.created_at));;
     document.getElementById('lastModified').textContent = formattedDate.format( new Date(project.last_modified));;
 

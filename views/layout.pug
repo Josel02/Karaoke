@@ -16,18 +16,18 @@ html(lang="en")
 
   body.h-100
     div.d-flex.flex-column.min-vh-100
-      header.container-fluid.py-3
+      header.container-fluid.py-1.pt-2
         div.container.d-flex.flex-column.flex-lg-row.align-items-center.justify-content-center
           img(src="/images/logo.png", alt="Logo", class="logo mb-2 mb-lg-0 me-0 me-lg-3" width="80" height="80")
           h1.text-center.mb-0 Cake Karaoke
-      nav.navbar.navbar-expand-lg
-          div.container-fluid
-            button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarText", aria-controls="navbarText", aria-expanded="false", aria-label="Toggle navigation")
+      nav.navbar.navbar-expand-lg.pb-3
+          div.container
+            button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
               span.navbar-toggler-icon
-            div.collapse.navbar-collapse#navbarText
-              ul.navbar-nav.me-auto.mb-2.mb-lg-0
+            div.collapse.navbar-collapse#navbarNav
+              ul.navbar-nav.mx-auto
                 li.nav-item
-                  a.nav-link(href="/") Inicio
+                  a.nav-link.active(href="/") Inicio
                 li.nav-item
                   a.nav-link(href="/create") Nuevo proyecto
                 li.nav-item
@@ -36,9 +36,10 @@ html(lang="en")
                   a.nav-link(href="/about") Sobre nosotros
       main.flex-grow-1
         block content
-      footer.container-fluid.text-white.py-3
-        .container.p-3.text-center
+      footer.container-fluid.text-white.py-2
+        .container.px-3.pt-3.text-center
           p.mb-2 &copy; 2024 Cake Karaoke. Todos los derechos reservados.
           p Recuerda pasartelo bien y disfruta cantando.
+    script(src="/javascripts/general.js")
     script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous")
-    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")   
+    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")     
