@@ -23,6 +23,10 @@ footer {
   background-color: #35323d;
 }
 
+.banner img {
+  width: 60%;
+}
+
 section.cta {
   background-color: #fff4cc;
   border-radius: 10px;
