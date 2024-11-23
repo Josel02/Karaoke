@@ -32,7 +32,8 @@ app.use('/videos', express.static(path.join(__dirname, 'videos')));
 app.use('/music', express.static(path.join(__dirname, 'music')));
 
 // Rutas
-app.get('/', (req, res) => res.render('home', { title: 'Karaoke Sync' })); // Vista de inicio
+app.get('/', (req, res) => res.render('home', { title: 'Cake Karaoke' })); // Vista de inicio
+app.get('/about', (req, res) => res.render('about', { title: 'Acerca de Cake Karaoke' })); // Vista de acerca de
 app.use('/create', indexRouter); // Ruta para crear proyecto
 app.use('/projects', projectsRouter); // Ruta para gestionar proyectos
 

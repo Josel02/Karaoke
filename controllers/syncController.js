@@ -42,7 +42,7 @@ exports.syncLyrics = (req, res) => {
             srtService.generateSRT(lyricsArray, parsedTimestamps, outputPath);
 
             // Guardar en la base de datos
-            Project.create(projectName, `${projectName}.srt`, 'Descripción del proyecto', (err, project) => {
+            Project.create(projectName, `${projectName}.srt`, 'Descripción del proyecto', newAudioFileName, "" ,(err, project) => {
                 if (err) {
                     console.error('Error al guardar el proyecto en la base de datos:', err);
                     return res.status(500).send('Error al guardar el proyecto.');

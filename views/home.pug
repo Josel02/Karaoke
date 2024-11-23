@@ -1,7 +1,57 @@
 extends layout
 
 block content
-  h1 Bienvenido a Karaoke Sync
-  div
-    a(href='/create') Crear un nuevo proyecto
-    a(href='/projects') Ver mis proyectos
+  section.banner.text-center
+    img(src="/images/banner.jpg", alt="Banner" class="img-fluid rounded-bottom-1")
+
+  section.intro.py-5.text-center
+      div.container
+        p.lead.text-muted.fs-3
+          | ¿Alguna vez soñaste con combinar tu amor por la repostería y el karaoke? 
+          | Aquí lo hacemos posible. Hornea, canta, ¡y deja que tu creatividad brille!
+        a.btn.btn-primary.mt-3(href="/create") Crea tu Karaoke ahora
+
+  section.features.py-5
+    div.container
+      h3.text-center.mb-4 Nuestras Funciones Principales
+      div.row
+        div.col-md-4.text-center
+          img(src="/images/icono-crear.png", alt="Crear Karaoke", class="img-fluid mb-3", style="width: 80px;")
+          h4 Crea Tu Propio Karaoke
+          p.text-muted Sube una base musical, escribe la letra y ajusta los tiempos para personalizar tu karaoke.
+        div.col-md-4.text-center
+          img(src="/images/icono-compartir.png", alt="Compartir", class="img-fluid mb-3", style="width: 80px;")
+          h4 Comparte con Amigos
+          p.text-muted Comparte tus creaciones con la comunidad o invita a tus amigos a un duelo de karaoke.
+        div.col-md-4.text-center
+          img(src="/images/icono-pastel.png", alt="Disfruta del Karaoke", class="img-fluid mb-3", style="width: 80px;")
+          h4 Karaoke con Dulces
+          p.text-muted Mientras cantas, explora cualquier recetas temáticas y hornea algo delicioso.
+
+  section.cta.text-center.py-5
+    div.container
+      h2 "¡Dulce + Música = Alegría!"
+      p.mt-3.lead.fs-4
+        | ¿Sabías que cantar libera endorfinas y comer dulces mejora el estado de ánimo? 
+        | ¡Con Cake Karaoke, tienes ambas cosas en un solo lugar!
+      a.btn.btn-primary.mt-3(href="/about") Aprende más sobre nosotros
+
+  section.testimonios.py-5
+    div.container
+      h3.text-center.mb-4 Lo que dicen nuestros usuarios
+      div.row
+        div.col-md-4.text-center
+          blockquote.blockquote
+            p "¡Es como un sueño hecho realidad! Hornear y cantar es todo lo que necesitaba."
+            div.blockquote-footer
+              cite Usuario 1
+        div.col-md-4.text-center
+          blockquote.blockquote
+            p "La combinación perfecta para cualquier amante de la música y el azúcar."
+            div.blockquote-footer
+              cite Usuario 2
+        div.col-md-4.text-center
+          blockquote.blockquote
+            p "Mis amigos y yo ahora tenemos una tradición: karaoke y cupcakes todos los viernes."
+            div.blockquote-footer
+              cite Usuario 3

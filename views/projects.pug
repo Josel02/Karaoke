@@ -1,13 +1,21 @@
 extends layout
 
 block content
-  h1= title
-  ul
-    each project in projects
-      li
-        p Nombre del proyecto: #{project.name}
-        p Descripción: #{project.description}
-        p Fecha de creación: #{project.created_at}
-        a(href=`/projects/view/${project.id}`) Ver
-        form(action=`/projects/delete/${project.id}`, method="post", onsubmit="return confirm('¿Estás seguro de eliminar este proyecto?');")
-          button(type="submit") Eliminar
+  div.container.py-4
+    h1.text-center.mb-4 Mis Proyectos
+
+    div.container
+      div.row
+        each project in projects
+          div.col-md-4.mb-4
+            div.card.h-100.text-center.d-flex.flex-column
+              img.mx-auto.mt-3(src=`/images/icons/${project.icon}.png`, alt="Icono del proyecto" width="120" height="120")
+              div.card-body.d-flex.flex-column
+                h5.card-title.mt-3= project.name
+                p.text-muted.mb-0(data-created-at=project.created_at) Creado el: #{project.created_at}
+              div.d-flex.justify-content-center.mb-3
+                a.btn.btn-primary.me-1(href=`/projects/view/${project.id}`) Ver más
+                form(data-project-id=project.id, class="delete-form", method="post", action=`/projects/delete/${project.id}`)
+                  button.btn.btn-danger.ms-1(type="button") Eliminar
+
+  script(src="/javascripts/project.js")

@@ -1,27 +1,39 @@
 extends layout
 
 block content
-  h1 Sincronización Manual de Karaoke
-  form(id='karaokeForm', method='post', enctype='multipart/form-data')
-    label(for='projectName') Nombre del Proyecto:
-    input(type='text', id='projectName', name='projectName', required)
-    br
-    label(for='audioFile') Cargar Base Musical:
-    input(type='file', id='audioFile', name='audioFile', accept='audio/*', required)
-    br
-    label(for='lyrics') Pega la letra:
-    textarea(id='lyrics', name='lyrics', rows='10', cols='50') Pega la letra aquí...
-    br
-    button(type='button', id='syncButton') Iniciar Sincronización
-  div(id='syncSection', style='display:none')
-    // Reproductor de audio sin controles predeterminados
-    audio(id='audioPlayer')
-    // Botones personalizados
-    button(type='button', id='playButton') Play
-    button(type='button', id='pauseButton') Pause
-    button(type='button', id='resetButton') Reiniciar Sincronización
-    // Lista de letras
-    ul(id='lyricsList')
-    // Botón para marcar tiempos
-    button(type='button', id='markButton') Marcar Tiempo
-  script(src='/javascripts/sync.js')
+  .container.py-4
+    h1.text-center.mb-4 Sincronización
+
+    div.row
+      // Columna izquierda: Formulario
+      div.col-lg-6.mb-4
+        form#karaokeForm(method='post', enctype='multipart/form-data')
+          div.mb-3
+            label(for='projectName', class='form-label') Nombre del Proyecto:
+            input.form-control(type='text', id='projectName', name='projectName', required)
+          div.mb-3
+            label(for='audioFile', class='form-label') Cargar Base Musical:
+            input.form-control(type='file', id='audioFile', name='audioFile', accept='audio/*', required)
+          div.mb-3
+            label(for='lyrics', class='form-label') Pega la letra:
+            textarea.form-control(id='lyrics', name='lyrics', rows='10') Pega la letra aquí...
+          button.btn.btn-primary(type='button', id='syncButton') Iniciar Sincronización
+
+      // Columna derecha: Sincronización
+      div.col-lg-6#syncSection(style='display:none')
+        h3.text-center Sincronización en Curso
+        div.mb-3
+          // Contenedor para Wavesurfer.js
+          div#waveform(style='width: 100%; height: 150px; background-color: #e9ecef; border: 1px solid #ccc;')
+        div.d-flex.justify-content-center.mb-3
+          button.btn.btn-success.me-2(type='button', id='playButton')
+            i.bi.bi-play-fill
+          button.btn.btn-warning.text-white.me-2(type='button', id='pauseButton')
+            i.bi.bi-pause-fill
+          button.btn.btn-danger(type='button', id='resetButton')
+            i.bi.bi-arrow-clockwise
+        ul#lyricsList.list-group
+          li.list-group-item.text-muted Tus marcas de tiempo aparecerán aquí...
+        button.btn.btn-primary.mt-3(type='button', id='markButton') Marcar Tiempo
+  script(src="/javascripts/sync.js")
+  script(src="https://unpkg.com/wavesurfer.js")

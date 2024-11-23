@@ -1,36 +1,97 @@
-/* public/stylesheets/style.css */
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+nav {
+  background-color: #ffd8a6;
 }
 
-a {
-  color: #00B7FF;
+header {
+  background-color: #fff4cc;
 }
 
-.marked {
-  background-color: #d4edda;
+header h1 {
+  font-family: "Caveat Brush", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 3.5rem;
 }
 
-button {
-  margin: 5px;
-  padding: 10px 15px;
-  font-size: 14px;
-  cursor: pointer;
+main {
+  padding-inline-start: 20px;
+  padding-inline-end: 20px;
 }
 
-ul {
+footer {
+  background-color: #35323d;
+}
+
+section.cta {
+  background-color: #fff4cc;
+  border-radius: 10px;
+}
+
+.btn-primary {
+  background-color: #737284;
+  border-color: #737284;     
+  color: white;            
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #35323d; 
+  border-color: #35323d;     
+}
+
+.btn-primary:disabled {
+  background-color: #b0afbd; 
+  border-color: #b0afbd;
+  color: white;
+}
+
+#syncSection {
+  padding: 20px;
+}
+
+#syncSection ul {
   list-style-type: none;
   padding: 0;
 }
 
-li {
+#syncSection li {
   padding: 5px;
   margin-bottom: 3px;
   border-bottom: 1px solid #ccc;
 }
 
-li.marked {
+#syncSection li.marked {
   background-color: #d4edda;
   text-decoration: line-through;
+}
+
+.card-body {
+  padding-bottom: 20px; /* Ajustar el espacio entre texto y botones */
+}
+
+.media-element {
+  max-width: 640px;
+  width: 100%; /* Ocupa todo el ancho disponible */
+  height: auto; /* Mantiene la proporción del video o canvas */
+  border-radius: 8px; /* Para bordes redondeados (opcional) */
+  display: block; /* Asegura que se comporten como elementos de bloque */
+}
+
+.progress-container {
+  max-width: 640px; /* Coincide con el tamaño máximo del video y canvas */
+  width: 100%; /* Ajusta al contenedor */
+  height: 20px; /* Altura fija para la barra de progreso */
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%; /* Comienza vacío */
+  height: 100%; /* Coincide con la altura del contenedor */
+  background-color: green;
+  transition: width 0.2s ease-in-out; /* Animación suave */
+  border-radius: 10px;
 }

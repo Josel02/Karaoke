@@ -1,35 +1,59 @@
 extends layout
 
 block content
-  h1= project.name
-  p Descripción: #{project.description}
-  p Archivo generado: 
-    a(href=`/lyrics/${project.filename}`) Descargar archivo SRT
-  p Fecha de creación: #{project.created_at}
-  p Última modificación: #{project.last_modified}
+ div.container.py-4
+  div.row
+    div.col-md-4
+      h1= project.name
+      p Descripción: #{project.description}
+      p Archivo generado: 
+        a(href=`/lyrics/${project.filename}`) Descargar letra en .srt
+      p Fecha de creación: 
+        span#createdAt
+      p Última modificación: 
+        span#lastModified
 
-  if videoExists
-    h2 Video Generado
-    video(src=videoPath, controls, width='640', height='360') Tu navegador no soporta videos.
-  else
-    h2 Generar Video Karaoke.
-    button(type='button', id='recordButton') Grabar Video
-  
-  canvas(id='videoCanvas', width='640', height='360', style='display:none; border:1px solid black')
+      div.d-flex.align-items-center.gap-2
+        button(
+          type='button',
+          id='recordButton',
+          class='btn btn-primary',
+          disabled=videoExists 
+        ) Generar Karaoke
 
-  // Barra de carga
-  div(id='progressContainer', style='width: 100%; display: none; margin-top: 20px;')
-    div(id='progressBar', style='width: 0%; height: 20px; background-color: green;')
+        form(data-project-id=project.id, class="delete-form", method="post", action=`/projects/delete/${project.id}`)
+          button.btn.btn-danger(type="button") Eliminar Proyecto 
+      
+    div.col-md-8.text-center
+      br
 
-  br
-  a(href='/projects') Volver a proyectos
+      div.container-fluid
+        if videoExists
+          div.text-end
+              i.bi.bi-trash#deleteVideoButton.me-2(style="cursor: pointer;", title="Eliminar video")
+              a(href=`/videos/${project.video}`, download, title="Descargar video").text-black
+                i.bi.bi-download(style="cursor: pointer;")
+          div.row
+            div.col-12
+              video(src=`/videos/${project.video}`, controls, class="media-element", style="border: 1px solid black;") Tu navegador no soporta videos.
+        div.row
+          div.col-12
+            div#progressContainer(class="progress-container mb-1", style="display: none;")
+              div#progressBar(class="progress-bar")
+        div.row
+          div.col-12
+            canvas#videoCanvas(class="media-element", width='640', height='360', style='display:none; border:1px solid black;')
+
+  a.btn.btn-primary.mt-4(href='/projects') Volver
 
   // Cargar los datos en variables de JavaScript
   script.
-    const project = !{project};
-    const audio = !{musicPath};
+    const project = !{JSON.stringify(project)};
+    const audio = !{audioPath};
     const lyrics = !{lyrics};
     const timestamps = !{timestamps};
 
-  // Cargar el script de generación de video
+  // Cargar el script
+  script(src='/javascripts/project.js')
   script(src='/javascripts/projectDetail.js')
+  

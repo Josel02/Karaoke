@@ -18,6 +18,8 @@ db.run(`
         name TEXT NOT NULL,
         filename TEXT NOT NULL,
         description TEXT,
+        audio TEXT, -- Nuevo campo para almacenar el archivo de audio
+        video TEXT, -- Nuevo campo para almacenar el archivo de video
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )

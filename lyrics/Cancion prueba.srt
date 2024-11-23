@@ -1,24 +1,40 @@
 1
-00:00:02,000 --> 00:00:04,000
-Hola
+00:00:06,000 --> 00:00:08,000
+El sol brilla en lo alto, iluminando mi camino,
 
 2
-00:00:03,000 --> 00:00:05,000
-Holita
+00:00:07,000 --> 00:00:09,000
+siento el pulso del mundo, en cada paso divino.
 
 3
-00:00:05,000 --> 00:00:07,000
-Esto es una letra
+00:00:10,000 --> 00:00:12,000
+La brisa susurra sueños, secretos que quiero alcanzar,
 
 4
-00:00:07,000 --> 00:00:09,000
-Muy bonita
+00:00:12,000 --> 00:00:14,000
+y en el eco de mis pasos, la vida vuelve a empezar.
 
 5
-00:00:08,000 --> 00:00:10,000
-Que tiene una letrita
+00:00:15,000 --> 00:00:17,000
+Las estrellas me guían, en la noche oscura y fría,
 
 6
-00:00:09,000 --> 00:00:11,000
-Muy chulita
+00:00:18,000 --> 00:00:20,000
+el latido de mi alma, se convierte en melodía.
+
+7
+00:00:20,000 --> 00:00:22,000
+Con la fuerza de un río, avanzo sin mirar atrás,
+
+8
+00:00:21,000 --> 00:00:23,000
+dejando huellas profundas, que el tiempo no borrará.
+
+9
+00:00:23,000 --> 00:00:25,000
+Hoy canto al ritmo de mi corazón, sin miedo ni dolor,
+
+10
+00:00:26,000 --> 00:00:28,000
+porque en cada nota encuentro, la verdad de mi amor.
 

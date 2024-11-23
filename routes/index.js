@@ -4,7 +4,7 @@ const syncController = require('../controllers/syncController');
 
 // Ruta para cargar la vista de sincronización
 router.get('/', (req, res) => {
-    res.render('index', { title: 'Sincronización de Karaoke' });
+    res.render('index', { title: 'Nuevo Karaoke' });
 });
 
 // Ruta para procesar la sincronización
