@@ -2,6 +2,11 @@ header, nav {
   background-color: #fff4cc;
 }
 
+header {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
 main {
   padding-inline-start: 20px;
   padding-inline-end: 20px;
@@ -25,10 +30,6 @@ h1, h2, h3, h4 {
 #swal2-title {
   font-family: "Segoe UI";
   font-weight: bold;
-}
-
-nav {
-  border-bottom: 1px solid #B0B0B0; /* Línea debajo del nav */
 }
 
 /* Navbar links */
