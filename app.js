@@ -5,6 +5,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const fileUpload = require('express-fileupload');
+const audioRouter = require('./routes/audio'); // Importa el archivo de rutas
 
 const indexRouter = require('./routes/index');
 const projectsRouter = require('./routes/projects');
@@ -36,6 +37,7 @@ app.get('/', (req, res) => res.render('home', { title: 'Cake Karaoke' })); // Vi
 app.get('/about', (req, res) => res.render('about', { title: 'Acerca de Cake Karaoke' })); // Vista de acerca de
 app.use('/create', indexRouter); // Ruta para crear proyecto
 app.use('/projects', projectsRouter); // Ruta para gestionar proyectos
+app.use('/audio', audioRouter);
 
 // Manejo de errores 404
 app.use((req, res, next) => {

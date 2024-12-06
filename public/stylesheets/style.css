@@ -129,3 +129,17 @@ section.cta {
   transition: width 0.2s ease-in-out; /* Animación suave */
   border-radius: 10px;
 }
+
+.rotating-svg {
+  animation: spin 2s cubic-bezier(0.4, 0.0, 0.2, 1) infinite; /* Animación suave */
+  transform-origin: center; /* Asegura la rotación sobre el centro */
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
