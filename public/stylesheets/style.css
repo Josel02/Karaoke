@@ -1,9 +1,26 @@
+/* Elimina cualquier fondo global, y asigna según la clase */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Página de Inicio con fondo blanco */
+.home-page {
+  background-color: #ffffff; 
+}
+
+/* Otras páginas con fondo gris */
+.other-page {
+  background-color: #f2f2f2;
+}
+
+/* Resto de estilos se mantienen como antes... */
 header, nav {
   background-color: #fff4cc;
 }
 
 header {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
 
@@ -19,20 +36,21 @@ footer {
 header h1 {
   font-family: "Caveat Brush", cursive;
   font-weight: 400;
-  font-style: normal;
   font-size: 3.5rem;
+  color: #35323d;
 }
 
 h1, h2, h3, h4 {
-  font-family: "Caveat Brush";
+  font-family: "Caveat Brush", cursive;
+  color: #35323d;
 }
 
-#swal2-title {
-  font-family: "Segoe UI";
-  font-weight: bold;
+p, label, .form-label, .lead {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  color: #35323d;
 }
 
-/* Navbar links */
 .navbar-nav .nav-link {
   font-family: "Caveat Brush";
   text-transform: uppercase;
@@ -40,95 +58,114 @@ h1, h2, h3, h4 {
   font-size: 1.2rem;
   color: #333;
   margin-right: 15px;
-  padding: 4px 10px; /* Añadir relleno para parecer un botón */
-}
-
-.nav-link.active {
-  color: black; /* Texto blanco al pasar el ratón o cuando está activo */
-  background-color: #FFA366; /* Fondo naranja */
+  padding: 4px 10px;
   border-radius: 3px;
 }
 
-.navbar-nav .nav-link:focus {
-  outline: none; /* Elimina el borde azul al hacer clic */
+.nav-link.active,
+.navbar-nav .nav-link:hover {
+  color: #fff;
+  background-color: #FFA366;
 }
 
 .banner img {
   width: 60%;
+  border-radius: 10px;
 }
 
 section.cta {
   background-color: #fff4cc;
   border-radius: 10px;
+  padding: 40px;
 }
 
 .btn-primary {
   background-color: #737284;
   border-color: #737284;     
-  color: white;            
+  color: white;
+  transition: background-color 0.3s ease;
 }
 
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
-  background-color: #35323d; 
-  border-color: #35323d;     
+  background-color: #35323d;
+  border-color: #35323d;
 }
 
 .btn-primary:disabled {
-  background-color: #b0afbd; 
+  background-color: #b0afbd;
   border-color: #b0afbd;
   color: white;
 }
 
-#syncSection {
+.btn-secondary {
+  background-color: #FFA366;
+  border-color: #FFA366;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #e17d4b;
+  border-color: #e17d4b;
+}
+
+.card {
+  background-color: #f5f5f5; 
+  border-radius: 20px !important;
+  border: 1px solid #dedede;
   padding: 20px;
+  position: relative;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1), 0 3px 5px rgba(0,0,0,0.08) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#syncSection ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-#syncSection li {
-  padding: 5px;
-  margin-bottom: 3px;
-  border-bottom: 1px solid #ccc;
-}
-
-#syncSection li.marked {
-  background-color: #d4edda;
-  text-decoration: line-through;
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.1) !important;
 }
 
 .card-body {
-  padding-bottom: 20px; /* Ajustar el espacio entre texto y botones */
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+  z-index: 1;
 }
 
 .media-element {
   max-width: 640px;
-  width: 100%; /* Ocupa todo el ancho disponible */
-  height: auto; /* Mantiene la proporción del video o canvas */
-  border-radius: 8px; /* Para bordes redondeados (opcional) */
-  display: block; /* Asegura que se comporten como elementos de bloque */
+  width: 100%;
+  border-radius: 8px; 
+  display: block; 
+  margin: 0 auto; /* Centra el video horizontalmente */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .progress-container {
-  max-width: 640px; /* Coincide con el tamaño máximo del video y canvas */
-  width: 100%; /* Ajusta al contenedor */
-  height: 20px; /* Altura fija para la barra de progreso */
+  position: relative;     /* Contenedor posicionado relativamente */
+  max-width: 640px; 
+  width: 100%; 
+  height: 20px; 
   background-color: #e0e0e0;
   border-radius: 10px;
   overflow: hidden;
+  margin: 10px auto;  /* Centrado horizontalmente */
+  display: block;
 }
 
 .progress-bar {
-  width: 0%; /* Comienza vacío */
-  height: 100%; /* Coincide con la altura del contenedor */
-  background-color: green;
-  transition: width 0.2s ease-in-out; /* Animación suave */
-  border-radius: 10px;
+  position: absolute;    /* Barra posicionada absolutamente */
+  top: 0;
+  left: 0;
+  width: 0%;            /* Comienza en 0% */
+  height: 100%;
+  background-color: #FFA366; /* Naranja de tu paleta */
+  transition: width 0.2s ease-in-out;
+  /* Sin border-radius aquí */
+  margin: 0;
+  border: none;
+  display: block;
 }
+
 
 .rotating-svg {
   animation: spin 2s cubic-bezier(0.4, 0.0, 0.2, 1) infinite; /* Animación suave */
@@ -142,4 +179,21 @@ section.cta {
   100% {
       transform: rotate(360deg);
   }
+}
+
+#syncSection li.marked {
+  background-color: #d4edda;
+  text-decoration: line-through;
+}
+
+blockquote {
+  font-family: 'Segoe UI', sans-serif;
+  font-style: italic;
+  border-left: 4px solid #FFA366;
+  padding-left: 10px;
+}
+
+.blockquote-footer {
+  font-size: 0.9rem;
+  color: #737284;
 }

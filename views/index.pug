@@ -2,38 +2,57 @@ extends layout
 
 block content
   .container.py-4
-    h1.text-center.mb-4 Sincronización
+    h1.text-center.mb-4.text-dark Crea un Nuevo Proyecto
 
-    div.row
+    .row
       // Columna izquierda: Formulario
-      div.col-lg-6.mb-4
-        form#karaokeForm(method='post', enctype='multipart/form-data')
-          div.mb-3
-            label(for='projectName', class='form-label') Nombre del Proyecto:
-            input.form-control(type='text', id='projectName', name='projectName', required)
-          div.mb-3
-            label(for='audioFile', class='form-label') Cargar Base Musical:
-            input.form-control(type='file', id='audioFile', name='audioFile', accept='audio/*', required)
-          div.mb-3
-            label(for='lyrics', class='form-label') Pega la letra:
-            textarea.form-control(id='lyrics', name='lyrics', rows='10') Pega la letra aquí...
-          button.btn.btn-primary(type='button', id='syncButton') Iniciar Sincronización
+      .col-lg-6.mb-4
+        .card.shadow-sm.border-0.rounded
+          .card-body
+            h2.fs-4.mb-3.text-dark Crea tu Karaoke
+            p.text-muted.mb-3
+              | Añade un nombre, sube tu pista base y pega la letra. Luego podrás sincronizar los tiempos línea por línea.
+            
+            form#karaokeForm(method='post', enctype='multipart/form-data')
+              .mb-3
+                label(for='projectName', class='form-label fw-bold') Nombre del Proyecto:
+                input.form-control(type='text', id='projectName', name='projectName', required placeholder='Ej: MiKaraokeEspecial')
+
+              .mb-3
+                label(for='audioFile', class='form-label fw-bold') Cargar Base Musical:
+                input.form-control(type='file', id='audioFile', name='audioFile', accept='audio/*', required)
+
+              .mb-3
+                label(for='lyrics', class='form-label fw-bold') Pega la letra:
+                textarea.form-control(id='lyrics', name='lyrics', rows='10') Pega la letra aquí...
+
+              button.btn.btn-primary(type='button', id='syncButton').w-100.mt-3 Iniciar Sincronización
 
       // Columna derecha: Sincronización
-      div.col-lg-6#syncSection(style='display:none')
-        h3.text-center Sincronización en Curso
-        div.mb-3
-          // Contenedor para Wavesurfer.js
-          div#waveform(style='width: 100%; height: 150px; background-color: #e9ecef; border: 1px solid #ccc;')
-        div.d-flex.justify-content-center.mb-3
-          button.btn.btn-success.me-2(type='button', id='playButton')
-            i.bi.bi-play-fill
-          button.btn.btn-warning.text-white.me-2(type='button', id='pauseButton')
-            i.bi.bi-pause-fill
-          button.btn.btn-danger(type='button', id='resetButton')
-            i.bi.bi-arrow-clockwise
-        ul#lyricsList.list-group
-          li.list-group-item.text-muted Tus marcas de tiempo aparecerán aquí...
-        button.btn.btn-primary.mt-3(type='button', id='markButton') Marcar Tiempo
+      .col-lg-6#syncSection(style='display:none')
+        .card.shadow-sm.border-0.rounded
+          .card-body
+            h3.text-center.mb-4.text-dark Sincronización en Curso
+            p.text-muted Por favor, reproduce el audio y marca los tiempos para cada línea de la letra.
+            
+            .mb-3
+              div#waveform(style='width: 100%; height: 150px; background-color: #e9ecef; border: 1px solid #ccc; border-radius:5px;')
+            
+            .d-flex.justify-content-center.mb-3.gap-2
+              button.btn.btn-success(type='button', id='playButton')
+                i.bi.bi-play-fill.me-1
+                | Reproducir
+              button.btn.btn-warning.text-white(type='button', id='pauseButton')
+                i.bi.bi-pause-fill.me-1
+                | Pausar
+              button.btn.btn-danger(type='button', id='resetButton')
+                i.bi.bi-arrow-clockwise.me-1
+                | Reiniciar
+            
+            ul#lyricsList.list-group.mt-3
+              li.list-group-item.text-muted Tus marcas de tiempo aparecerán aquí...
+            
+            button.btn.btn-primary.mt-3.w-100(type='button', id='markButton') Marcar Tiempo
+
   script(src="/javascripts/sync.js")
   script(src="https://unpkg.com/wavesurfer.js")

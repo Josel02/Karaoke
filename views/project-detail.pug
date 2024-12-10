@@ -1,50 +1,57 @@
 extends layout
 
 block content
- div.container.py-4
-  div.row
-    div.col-md-4
-      h1= project.name
-      p Descripción: #{project.description}
-      p Archivo generado: 
-        a(href=`/lyrics/${project.filename}`) Descargar letra en .srt
-      p Fecha de creación: 
-        span#createdAt
-      p Última modificación: 
-        span#lastModified
+  div.container.py-4
+    div.row
+      div.col-md-4
+        // Envolvemos en una card el bloque izquierdo
+        .card.shadow-lg.border-0.rounded
+          .card-body
+            h1= project.name
+            p Descripción: #{project.description}
+            p Archivo generado: 
+              a(href=`/lyrics/${project.filename}`) Descargar letra en .srt
+            p Fecha de creación: 
+              span#createdAt
+            p Última modificación: 
+              span#lastModified
 
-      div.d-flex.align-items-center.gap-2
-        button(
-          type='button',
-          id='recordButton',
-          class='btn btn-primary',
-          disabled=videoExists 
-        ) Generar Karaoke
+            div.d-flex.align-items-center.gap-2
+              button(
+                type='button',
+                id='recordButton',
+                class='btn btn-primary',
+                disabled=videoExists 
+              ) Generar Karaoke
 
-        form(data-project-id=project.id, class="delete-form", method="post", action=`/projects/delete/${project.id}`)
-          button.btn.btn-danger(type="button") Eliminar Proyecto 
-      
-    div.col-md-8.text-center
-      br
+              form(data-project-id=project.id, class="delete-form", method="post", action=`/projects/delete/${project.id}`)
+                button.btn.btn-danger(type="button") Eliminar Proyecto
 
-      div.container-fluid
-        if videoExists
-          div.text-end
-              i.bi.bi-trash#deleteVideoButton.me-2(style="cursor: pointer;", title="Eliminar video")
-              a(href=`/videos/${project.video}`, download, title="Descargar video").text-black
-                i.bi.bi-download(style="cursor: pointer;")
-          div.row
-            div.col-12
-              video(src=`/videos/${project.video}`, controls, class="media-element", style="border: 1px solid black;") Tu navegador no soporta videos.
-        div.row
-          div.col-12
-            div#progressContainer(class="progress-container mb-1", style="display: none;")
-              div#progressBar(class="progress-bar")
-        div.row
-          div.col-12
+      div.col-md-8.text-center
+        // Envolvemos la parte derecha en una card para homogenizar el estilo
+        .card.shadow-lg.border-0.rounded
+          .card-body
+            br
+
+            div.container-fluid
+              if videoExists
+                div.text-end
+                    i.bi.bi-trash#deleteVideoButton.me-2(style="cursor: pointer;", title="Eliminar video")
+                    a(href=`/videos/${project.video}`, download, title="Descargar video").text-black
+                      i.bi.bi-download(style="cursor: pointer;")
+                div.row
+                  div.col-12
+                    video(src=`/videos/${project.video}`, controls, class="media-element", style="border: 1px solid black;") Tu navegador no soporta videos.
+
+            div.row
+              div.col-12
+              div#progressContainer(class="progress-container mb-1", style="display: none;")
+                div#progressBar(class="progress-bar")
+            div.row
+              div.col-12
             canvas#videoCanvas(class="media-element", width='640', height='360', style='display:none; border:1px solid black;')
 
-  a.btn.btn-primary.mt-4(href='/projects') Volver
+    a.btn.btn-primary.mt-4(href='/projects') Volver
 
   // Cargar los datos en variables de JavaScript
   script.
@@ -55,4 +62,3 @@ block content
 
   // Cargar el script
   script(src='/javascripts/projectDetail.js')
-  
