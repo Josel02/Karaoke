@@ -158,7 +158,7 @@ section.cta {
   left: 0;
   width: 0%;            /* Comienza en 0% */
   height: 100%;
-  background-color: #FFA366; /* Naranja de tu paleta */
+  background-color: #FFA366; 
   transition: width 0.2s ease-in-out;
   /* Sin border-radius aquí */
   margin: 0;
