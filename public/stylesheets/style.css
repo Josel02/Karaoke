@@ -181,6 +181,10 @@ section.cta {
   }
 }
 
+#syncSection ul {
+  list-style-type: none;
+}
+
 #syncSection li.marked {
   background-color: #d4edda;
   text-decoration: line-through;
