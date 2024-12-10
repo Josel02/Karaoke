@@ -22,32 +22,47 @@ exports.syncLyrics = (req, res) => {
             fs.mkdirSync(uploadsDir);
         }
 
-        // Obtener la extensión del archivo y lo fusiona con su nuevo nombre
-        const audioFileExtension = path.extname(audioFile.name); 
-        const newAudioFileName = projectName + audioFileExtension;
-
-        const audioPath = path.join(uploadsDir, newAudioFileName);
-        audioFile.mv(audioPath, (err) => {
+        Project.findByName(projectName, (err, existingProject) => { 
+            console.log('existingProject:', existingProject);
+            
             if (err) {
-                console.error('Error al guardar el archivo de audio:', err);
-                return res.status(500).send('Error al guardar el archivo de audio.');
+                console.error('Error al verificar el nombre del proyecto:', err);
+                return res.status(500).send('Error al verificar el nombre del proyecto.');
+            }
+        
+            if (existingProject) {
+                console.log('El nombre del proyecto ya existe.');
+                return res.status(400).send('El nombre del proyecto ya existe. Por favor, elija otro nombre.');
             }
 
-            const outputsDir = path.join(__dirname, '..', 'lyrics');
-            if (!fs.existsSync(outputsDir)) {
-                fs.mkdirSync(outputsDir);
-            }
-
-            const outputPath = path.join(outputsDir, `${projectName}.srt`);
-            srtService.generateSRT(lyricsArray, parsedTimestamps, outputPath);
-
-            // Guardar en la base de datos
-            Project.create(projectName, `${projectName}.srt`, 'Descripción del proyecto', newAudioFileName, "" ,(err, project) => {
+            console.log("El nombre del proyecto es único.");
+        
+            // Continúa con la creación del proyecto si el nombre es único
+            const audioFileExtension = path.extname(audioFile.name); 
+            const newAudioFileName = projectName + audioFileExtension;
+        
+            const audioPath = path.join(uploadsDir, newAudioFileName);
+            audioFile.mv(audioPath, (err) => {
                 if (err) {
-                    console.error('Error al guardar el proyecto en la base de datos:', err);
-                    return res.status(500).send('Error al guardar el proyecto.');
+                    console.error('Error al guardar el archivo de audio:', err);
+                    return res.status(500).send('Error al guardar el archivo de audio.');
                 }
-                res.status(200).send('Sincronización completada y archivo SRT generado.');
+        
+                const outputsDir = path.join(__dirname, '..', 'lyrics');
+                if (!fs.existsSync(outputsDir)) {
+                    fs.mkdirSync(outputsDir);
+                }
+        
+                const outputPath = path.join(outputsDir, `${projectName}.srt`);
+                srtService.generateSRT(lyricsArray, parsedTimestamps, outputPath);
+        
+                Project.create(projectName, `${projectName}.srt`, 'Descripción del proyecto', newAudioFileName, "", (err, project) => {
+                    if (err) {
+                        console.error('Error al guardar el proyecto en la base de datos:', err);
+                        return res.status(500).send('Error al guardar el proyecto.');
+                    }
+                    res.status(200).send('Sincronización completada y archivo SRT generado.');
+                });
             });
         });
     } catch (error) {

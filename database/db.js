@@ -15,7 +15,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 db.run(`
     CREATE TABLE IF NOT EXISTS projects (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
+        name TEXT NOT NULL UNIQUE,
         filename TEXT NOT NULL,
         description TEXT,
         audio TEXT, -- Nuevo campo para almacenar el archivo de audio

@@ -169,26 +169,31 @@ document.addEventListener('DOMContentLoaded', () => {
       fetch('/create/sync', {
         method: 'POST',
         body: formData,
-      })
-        .then((response) => response.text())
-        .then((result) => {
-          console.log(result);
-          Swal.fire({
+      }).then((response) => {
+        if (!response.ok) {
+          return response.text().then((message) => {
+            throw new Error(message);
+          });
+        }
+        return response.text();
+      }).then((result) => {
+        console.log(result);
+        Swal.fire({
             icon: 'success',
             title: '¡Sincronización completada!',
             text: 'Archivo SRT generado correctamente.',
-          }).then(() => {
+        }).then(() => {
             window.location.href = '/projects';
-          });
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          Swal.fire({
+        });
+      }).catch((error) => {
+        Swal.fire({
             icon: 'error',
             title: '¡Error!',
-            text: 'Hubo un problema al generar el archivo SRT.',
-          });
+            text: error.message,
+        }).then(() => {
+          window.location.href = '/create';
         });
+      });
     }
   });
 
