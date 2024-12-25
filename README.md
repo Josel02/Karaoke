@@ -20,7 +20,7 @@ Esta aplicación es responsive en todos los dispositivos, con un diseño bonito 
 
 ## :video_camera: Video
 
-Aquí tienes un [video]() haciéndote un tour por la aplicación. (Se subirá pronto...)
+Aquí tienes un [video](https://youtu.be/4CfopNRgKFo) haciéndote un tour por la aplicación.
 
 ## ⚙️ Requisitos
 
@@ -36,7 +36,19 @@ Aquí tienes un [video]() haciéndote un tour por la aplicación. (Se subirá pr
 
 ## 📚 Documentación
 
-Se añadirá más adelante...
+## Introducción
+
+Cake Karaoke es una aplicación desarrollada en **Node.js** con **Express** bajo una arquitectura MVC. Su principal objetivo es permitir al usuario generar proyectos de karaoke a partir de una base musical y una letra dada. Como resultado, se produce un archivo **SRT sincronizado**, el cual podrá utilizarse para crear un vídeo karaoke más completo en el futuro.
+
+El diseño de la aplicación utiliza una temática pastelera con tonalidades naranjas, transmitiendo creatividad y dulzura, y está optimizado para dispositivos de cualquier tamaño mediante diseño responsive con **Bootstrap**.
+
+## Características
+
+- Generación de archivos SRT sincronizados.
+- Interfaz amigable y con temática pastelera.
+- Diseño responsive para adaptarse a móviles, tabletas y ordenadores.
+- Soporte para gestionar proyectos creados.
+- Sección de cambio de tono en desarrollo.
 
 ## ☎ Contacto
 
